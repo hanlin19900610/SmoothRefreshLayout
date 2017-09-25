@@ -34,7 +34,6 @@ public class CustomQQWebHeader extends FrameLayout implements IRefreshView {
         LayoutInflater.from(context).inflate(R.layout.layout_custom_qq_web_header, this);
     }
 
-
     @Override
     public int getType() {
         return TYPE_HEADER;
@@ -77,17 +76,17 @@ public class CustomQQWebHeader extends FrameLayout implements IRefreshView {
     }
 
     @Override
-    public void onRefreshComplete(SmoothRefreshLayout layout,boolean isSuccessful) {
+    public void onRefreshComplete(SmoothRefreshLayout layout, boolean isSuccessful) {
 
     }
 
     @Override
     public void onRefreshPositionChanged(SmoothRefreshLayout layout, byte status, IIndicator indicator) {
-
+        requestLayout();
     }
 
     @Override
     public void onPureScrollPositionChanged(SmoothRefreshLayout layout, byte status, IIndicator indicator) {
-
+        requestLayout();
     }
 }
