@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -13,6 +15,7 @@ import me.dkzwm.widget.srl.SmoothRefreshLayout;
 import me.dkzwm.widget.srl.extra.header.MaterialHeader;
 import me.dkzwm.widget.srl.sample.R;
 import me.dkzwm.widget.srl.utils.PixelUtl;
+import me.dkzwm.widget.srl.utils.QuickConfigAutoRefreshUtil;
 
 /**
  * Created by dkzwm on 2017/6/1.
@@ -23,6 +26,7 @@ public class WithWebViewActivity extends AppCompatActivity {
     private SmoothRefreshLayout mRefreshLayout;
     private WebView mWebView;
     private Handler mHandler = new Handler();
+    private QuickConfigAutoRefreshUtil mAutoRefreshUtil;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,7 +35,7 @@ public class WithWebViewActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle(R.string.with_webView);
-        mRefreshLayout = (SmoothRefreshLayout) findViewById(R.id.smoothRefreshLayout_with_webView_activity);
+        mRefreshLayout = findViewById(R.id.smoothRefreshLayout_with_webView);
         MaterialHeader header = new MaterialHeader(this);
         header.setPadding(0, PixelUtl.dp2px(this, 20), 0, PixelUtl.dp2px(this, 20));
         mRefreshLayout.setHeaderView(header);
@@ -49,7 +53,7 @@ public class WithWebViewActivity extends AppCompatActivity {
 
             }
         });
-        mWebView = (WebView) findViewById(R.id.webView_with_webView_activity);
+        mWebView = findViewById(R.id.webView_with_webView);
         mWebView.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
@@ -57,6 +61,8 @@ public class WithWebViewActivity extends AppCompatActivity {
             }
         });
         mRefreshLayout.autoRefresh(false);
+        mAutoRefreshUtil = new QuickConfigAutoRefreshUtil(mWebView);
+        mRefreshLayout.setLifecycleObserver(mAutoRefreshUtil);
     }
 
 
@@ -66,9 +72,18 @@ public class WithWebViewActivity extends AppCompatActivity {
             case android.R.id.home:
                 onBackPressed();
                 return true;
+            case Menu.FIRST:
+                mAutoRefreshUtil.autoRefresh(true, false, true);
+               return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        menu.add(Menu.NONE, Menu.FIRST, Menu.NONE, R.string.auto_refresh_func_demo);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -80,6 +95,14 @@ public class WithWebViewActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (mWebView != null) {
+            mWebView.removeAllViews();
+            ((ViewGroup) mWebView.getParent()).removeView(mWebView);
+            mWebView.setTag(null);
+            mWebView.clearHistory();
+            mWebView.destroy();
+            mWebView = null;
+        }
         mHandler.removeCallbacksAndMessages(null);
     }
 }

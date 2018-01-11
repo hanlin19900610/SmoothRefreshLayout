@@ -1,4 +1,110 @@
 # 更新日志
+## 1.6.1.3
+> 修复Attr冲突问题。    
+> 添加自动刷新辅助工具到 `ext-utils` 包。    
+> 添加了 `setEmptyLayoutResId` 和 `setErrorLayoutResId` 和 `setCustomLayoutResId` 方法。    
+> 添加了 `OnFingerDownListener` 接口。    
+> 修改内部实现，如果TargetView为空将不再抛出异常。
+## 1.6.1.2
+> 修改当刷新完成时，回滚动作是否能被触摸事件打断的逻辑为触发刷新完成（1.6.1.1条件为真实刷新完成才触发逻辑即:内部状态更改为刷新完成触发）。    
+> 新增 `ILifecycleObserver` 接口，用以观察视图生命周期，为后续可能的工具预留接口。    
+> 新增 `ext-utils` 包，现阶段添加了快速适配`AppBarLayout`的工具(`QuickConfigAppBarUtil`),如视图为 `CoordinatorLayout` + `AppBarLayout` + `RecyclerView、AbsListView、ScrollView` 这类视图结构，现在只需使用本工具，配置少量代码即可完成配置。
+## 1.6.1.1
+> 添加 `isEnabledCanNotInterruptScrollWhenRefreshCompleted` 和 `setEnabledCanNotInterruptScrollWhenRefreshCompleted` 方法，用以控制当刷新完成时，回滚动作是否能被触摸事件打断。    
+> 修复Fling的BUG。    
+## 1.6.1
+> 修改 `IRefreshView` 接口定义，当 `getCustomHeight` 方法返回值大于0时，Srl会以该值作为视图的高度进行后续操作。当值等于-1（MATCH_PARENT）时，Srl会将视图铺满布局。当值等于0时候不做处理以布局自适应。    
+> 修改 `IRefreshView` 接口，统一 `indicator` 参数均为继承 `IIndicator` 的泛型 `T`。    
+> 删除 `addView`相关的final关键字，修改相关实现。    
+> 修改 `StoreHouseHeader` 的绘图问题。    
+> 优化手势传递，使甩动手势更自然。   
+> 修复刷新视图有Margin时，未正确布局的问题。     
+> 修复当刷新视图样式不为 `STYLE_DEFAULT` 和 `STYLE_FOLLOW_CENTER` ，并且当前的移动距离大于Srl的高度时仍改变移动距离的问题。    
+## 1.6.0
+> 对现有项目进行分割，考虑到绝大多数都是自定义Header和Footer故拆分Core自带的2种风格Header和Footer到2个包（ext-classic和ext-material），至此Core包不再包含Header和Footer。如果需要可自行依赖。    
+> 修改手势传递实现，使效果更自然。    
+> 删除 `ext-horizontal` 包中的 `HorizontalMaterialHeader` 和 `HorizontalMaterialFooter`，将其移动到了demo中。    
+> 添加了 `flingCompat` 方法，用以向下传递Fling动作。    
+> 删除 `setOverScrollDurationRatio` 方法。    
+> 修改越界回弹实现，优化效果。    
+> 修改关闭Header和关闭Footer刷新功能实现，关闭时会检查是否处于刷新中，如果处于刷新中会重置默认状态。    
+> 修改 `ClassicHeader` 和 `ClassicFooter` 实现，不再使用XML布局构建，直接使用代码生成布局结构，整合共有属性。
+## 1.5.1.1
+> 修改从Window移除时不再移除Handler内的所有消息。    
+## 1.5.1
+> 修复嵌套布局下手势失效问题。    
+> 支持刷新视图可见情况下，手势向下传递。即当刷新视图高度未达到触发刷新高度时，手势能将刷新视图隐藏的同时继续传递手势到内容视图。       
+## 1.5.0.5
+> 修复未开启越界回弹情况下，手势甩动关闭刷新视图不起作用问题。    
+## 1.5.0.3
+> 修复多层嵌套下和多方向布局下事件处理可能的异常。    
+## 1.5.0.2
+> 修复嵌套滚动下可能存在的加载更多同步滚动被错误触发问题。    
+> 添加 `setEnableCompatLoadMoreScroll` 方法，用以设置是否开启加载更多同步滚动，默认开启。    
+> 添加 `getHeaderBackgroundColor` 方法，用以获取Header刷新高度区域内的背景色。    
+> 添加 `setHeaderBackgroundColor` 方法，用以设置Header刷新高度区域内的背景色。    
+> 添加 `sr_header_background_color`属性，用以设置Header刷新高度区域内的背景色。    
+> 添加 `getFooterBackgroundColor` 方法，用以获取Footer刷新高度区域内的背景色。    
+> 添加 `setFooterBackgroundColor` 方法，用以设置Footer刷新高度区域内的背景色。    
+> 添加 `sr_footer_background_color`属性，用以设置Footer刷新高度区域内的背景色。    
+> 修改方法 `setOnChildAlreadyInEdgeCanMoveHeaderCallBack` 为 `setOnChildNotYetInEdgeCannotMoveHeaderCallBack` ，保持含义和作用都对应原 `setOnChildScrollUpCallback` 方法。    
+> 修改方法 `setOnChildAlreadyInEdgeCanMoveFooterCallBack` 为 `setOnChildNotYetInEdgeCannotMoveFooterCallBack` ，保持含义和作用都对应原 `setOnChildScrollDownCallback` 方法。    
+> 修改接口 `OnChildAlreadyInEdgeCanMoveHeaderCallBack` 为 `OnChildNotYetInEdgeCannotMoveHeaderCallBack`，保持含义和作用都对应原 `OnChildScrollUpCallback` 接口。    
+> 修改接口 `OnChildAlreadyInEdgeCanMoveFooterCallBack` 为 `OnChildNotYetInEdgeCannotMoveFooterCallBack`，保持含义和作用都对应原 `OnChildScrollDownCallback` 接口。     
+> 修改方法 `isChildAlreadyInEdgeCanMoveHeader` 为 `isChildNotYetInEdgeCannotMoveHeader`，保持含义和作用都对应原 `canChildScrollUp` 方法。     
+> 修改方法 `isChildAlreadyInEdgeCanMoveFooter` 为 `isChildNotYetInEdgeCannotMoveFooter`，保持含义和作用都对应原 `canChildScrollDown` 方法。    
+## 1.5.0.1
+> 修复布局Footer时错误的检查了Header的样式。    
+> 优化移动刷新视图在 `STYLE_FOLLOW_PIN` 样式下的效率。
+## 1.5.0
+> 对现有项目进行分割，将二极刷新功能模块放入专门的包(ext-two-level)，新添加支持横向刷新模块(ext-horizontal)，原有核心模块作为基础模块引入(core)。从而削减了库的大小。使用者可以根据具体业务需求依赖扩展模块。    
+> 修改方法 `canChildScrollUp` 为 `isChildAlreadyInEdgeCanMoveHeader`。    
+> 修改方法 `canChildScrollDown` 为 `isChildAlreadyInEdgeCanMoveFooter`。    
+> 修改方法 `setOnChildScrollUpCallback` 为 `setOnChildAlreadyInEdgeCanMoveHeaderCallBack`。    
+> 修改方法 `setOnChildScrollDownCallback` 为 `setOnChildAlreadyInEdgeCanMoveFooterCallBack`。    
+> 修改接口 `OnChildScrollUpCallback` 为 `OnChildAlreadyInEdgeCanMoveHeaderCallBack`。    
+> 修改接口 `OnChildScrollDownCallback` 为 `OnChildAlreadyInEdgeCanMoveFooterCallBack`。    
+> 修改接口 `OnFingerInsideHorViewCallback` 为 `OnFingerInsideAnotherDirectionViewCallback`。    
+> 修改方法 `setOnFingerInsideHorViewCallback` 为 `setOnFingerInsideAnotherDirectionViewCallback`。    
+> 修改方法 `isEnableCheckFingerInsideHorView` 为 `isEnableCheckFingerInsideAnotherDirectionView`。    
+> 修改方法 `setEnableCheckFingerInsideHorView` 为 `setEnableCheckFingerInsideAnotherDirectionView`。    
+> 修改方法 `isDisabledWhenHorizontalMove` 为 `isDisabledWhenAnotherDirectionMove`。    
+> 修改方法 `setDisableWhenHorizontalMove` 为 `setDisableWhenAnotherDirectionMove`。    
+> 修改方法 `checkHorizontalViewUnInterceptedEvent` 为 `checkAnotherDirectionViewUnInterceptedEvent`。    
+> 修改方法 `updateYPos` 为 `updatePos`。    
+> 修改方法 `updateXPos` 为 `updateAnotherDirectionPos`。    
+> 添加方法 `createIndicator`。
+> 添加方法 `setIndicatorOffsetCalculator`，用以设置自定义便宜计算器实现更强的阻尼效果。   
+> 添加方法 `isEnabledLoadMoreNoMoreDataNoNeedSpringBack`。     
+> 添加方法 `setEnableLoadMoreNoMoreDataNoNeedSpringBack`，用以开启当无再多数据时是否不再回弹停留在最后移动位置。      
+> 修改 `IIndicator` 接口中的方法 `getOffsetY` 为 `getOffset`。    
+> 修改 `IIndicator` 接口中的方法 `getLastPosY` 为 `getLastPos`。    
+> 修改 `IIndicator` 接口中的方法 `getCurrentPosY` 为 `getCurrentPos`。    
+> 修改 `IIndicator` 接口中的方法 `setCurrentPosY` 为 `setCurrentPos`。    
+> 修改 `IIndicator` 接口中的添加 `setOffsetCalculator（IOffsetCalculator calculator）` 方法。    
+> 修改 `IIndicator` 接口中的添加 `IOffsetCalculator` 接口，用以设置自定义便宜计算器实现更强的阻尼效果。    
+> 其他内部参数名的修改。
+## 1.4.8.1
+> 修正参数错误。分包前的最后一个版本。    
+## 1.4.8
+> 修改 `IRefreshView` 接口,新增 `STYLE_PIN`、`STYLE_FOLLOW_SCALE`、`STYLE_FOLLOW_PIN`、`STYLE_FOLLOW_CENTER` 四种新的样式。    
+  `STYLE_PIN`:如果是Header则会固定在顶部,如果是Footer则会固定在底部。    
+  `STYLE_FOLLOW_SCALE`:先纵向跟随TargetView移动,当移动的位置大于视图高度就动态改变视图高度。    
+  `STYLE_FOLLOW_PIN`:先纵向跟随TargetView移动,当移动的位置大于视图高度就固定住。    
+  `STYLE_FOLLOW_CENTER`:先纵向跟随TargetView移动,当移动的位置大于视图高度就让刷新视图处于中间位置但不改变视图大小。     
+> 修改 `setEnableHeaderDrawerStyle` 和 `setEnableFooterDrawerStyle` 的实现。新版本需要之前的版本效果需要改变刷新视图的样式为 `STYLE_PIN`。    
+> 添加 `IChangeStateAnimatorCreator` 接口和 `setChangeStateAnimatorCreator` 方法。现在可以自定义切换状态动画。    
+> 修复 `DefaultIndicator` 中的参数错误。    
+> 强化对同时有横向和纵向滚动视图时的滑动处理。    
+> 将 `WaveHeader` 和 `WaveSmoothRefreshLayout` 从Lib中移除，移动到App中。    
+> 精简了部分代码。    
+## 1.4.7.3
+> 修复setEnableOverScroll功能部分失效问题, #25。    
+## 1.4.7.2
+> 修复RecyclerView未满屏幕情况下Footer滑动问题, #25。    
+## 1.4.7.1
+> 修改二级刷新，添加 `autoTwoLevelRefreshHint(boolean smoothScroll, int stayDuration, boolean canBeInterrupted)`方法，可以设置提示是否能被打断。    
+> 修复某些嵌套布局下触摸事件处理没有非常好的工作问题。    
 ## 1.4.7
 > 修改二级刷新，修复 `IIndicator` 转换错误。    
 > 删除支援Margin特性，提高效率。    
@@ -48,11 +154,6 @@
 > 添加 `setEnableScrollToTopAutoRefresh` 方法。用于开启到顶自动刷新。    
 > 修复加载更多无更多数据没有正确设置问题（PS：即MASK的值错了，应为`0x07<<10`而不是`0x05<<10`）。    
 > 修复若干触摸事件处理BUG。
-## 1.4.2(已废弃)
-> 修改越界回弹实现，优化回弹效果。    
-> 修复自动刷新下，无越界回弹效果问题。    
-> 修复当自动刷新正在进行时，移动内容视图返回到顶部后无法继续向上移动问题。    
-> 修复 `MaterialFooter` 刷新过程中颜色下标错误问题。    
 ## 1.4.1
 > 修复状态视图填充LayoutParams不一致问题。    
 > 修改包名为`me.dkzwm.widget.srl`,使包名更符合规范。    
@@ -98,17 +199,3 @@
 > 添加`setEnableHideFooterView`方法。   
 > 原有Mode对应改用如下属性组合替代。`NONE`->`setDisableRefresh(true)`+`setDisableLoadMore(true)`+`setEnableOverScroll(false)`;`REFRESH`->`setDisableRefresh(false)`+`setDisableLoadMore(true)`;
 `LOAD_MORE`->`setDisableRefresh(true)`+`setDisableLoadMore(false)`;`OVER_SCROLL`->`setDisableRefresh(false)`+`setDisableLoadMore(false)`+`setDisablePerformRefresh(true)`+`setDisablePerformLoadMore(true)`+`setEnableHideHeaderView(true)`+`setEnableHideFooterView(true)`;`BOTH`->`setDisableRefresh(false)`+`setDisableLoadMore(false)`
-
-## 1.3.5.1
-> 修复多点触摸下体验不一致问题，使非NestedScrolling下的体验和NestedScroling下的体验保持一致。    
-> 修改内部ScrollChecker实现，去掉不必要的防止内存泄露代码。    
-> 修正Hook方法可能失效问题。    
-
-## 1.3.5
-> 添加setEnableLoadMoreNoMoreData（）方法。当使用到底部自动加载更多情况下再无数据调用此方法。默认`ClassicFooter`实现了该功能。    
-> 给`MaterialFooter`添加了设置多颜色属性。    
-> 添加支持多状态视图支持。    
-> 修复部分情况下的关闭下拉刷新和关闭加载更多失效问题。    
-> 修复自动加载更多的BUG。    
-> 删除了对`material-progress`的依赖。    
-> 去掉了一些多余代码，减少体积。    

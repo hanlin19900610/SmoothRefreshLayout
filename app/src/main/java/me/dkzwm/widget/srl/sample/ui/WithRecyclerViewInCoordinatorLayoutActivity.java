@@ -33,7 +33,7 @@ public class WithRecyclerViewInCoordinatorLayoutActivity extends AppCompatActivi
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_with_recyclerview_in_coordinatorlayout);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.arrow_back_white_72x72);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -42,14 +42,13 @@ public class WithRecyclerViewInCoordinatorLayoutActivity extends AppCompatActivi
                 onBackPressed();
             }
         });
-        mRecyclerView = (RecyclerView) findViewById(R.id
-                .recyclerView_with_recyclerView_in_coordinatorLayout_activity);
+        mRecyclerView = findViewById(R.id.recyclerView_with_recyclerView_in_coordinatorLayout);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setHasFixedSize(true);
-        mAdapter = new RecyclerViewAdapter(getLayoutInflater());
+        mAdapter = new RecyclerViewAdapter(this, getLayoutInflater());
         mRecyclerView.setAdapter(mAdapter);
-        mRefreshLayout = (SmoothRefreshLayout) findViewById(R.id
-                .smoothRefreshLayout_with_recyclerView_in_coordinatorLayout_activity);
+        mRefreshLayout = findViewById(R.id
+                .smoothRefreshLayout_with_recyclerView_in_coordinatorLayout);
         mRefreshLayout.setEnableKeepRefreshView(true);
         mRefreshLayout.setDisableLoadMore(false);
         mRefreshLayout.setOnRefreshListener(new SmoothRefreshLayout.OnRefreshListener() {
@@ -83,7 +82,8 @@ public class WithRecyclerViewInCoordinatorLayoutActivity extends AppCompatActivi
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(WithRecyclerViewInCoordinatorLayoutActivity.this, MainActivity.class));
+        startActivity(new Intent(WithRecyclerViewInCoordinatorLayoutActivity.this,
+                MainActivity.class));
         finish();
     }
 

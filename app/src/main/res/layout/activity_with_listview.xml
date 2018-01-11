@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <me.dkzwm.widget.srl.SmoothRefreshLayout
-    android:id="@+id/smoothRefreshLayout_with_listView_activity"
+    android:id="@+id/smoothRefreshLayout_with_listView"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -8,21 +8,17 @@
     android:background="#F2F2F2"
     android:orientation="vertical"
     android:padding="12dp"
-    app:sr_content="@+id/listView_with_listView_activity"
+    app:sr_content="@+id/listView_with_list"
     app:sr_custom_layout="@layout/layout_custom_view"
     app:sr_empty_layout="@layout/layout_empty_view"
     app:sr_error_layout="@layout/layout_error_view"
+    app:sr_footer_background_color="@color/colorAccent"
+    app:sr_header_background_color="@color/colorPrimary"
     app:sr_state="empty">
 
-    <me.dkzwm.widget.srl.extra.header.ClassicHeader
-        android:id="@+id/classicHeader_with_listView_activity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        app:sr_style="style_scale"/>
 
     <ListView
-        android:id="@+id/listView_with_listView_activity"
+        android:id="@+id/listView_with_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
@@ -32,92 +28,73 @@
         android:background="@android:color/white"
         android:overScrollMode="never"/>
 
-    <me.dkzwm.widget.srl.extra.footer.ClassicFooter
-        android:id="@+id/classicFooter_with_listView_activity"
+    <me.dkzwm.widget.srl.extra.header.ClassicHeader
+        android:id="@+id/classicHeader_with_listView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
+        app:sr_style="style_scale"/>
+
+    <me.dkzwm.widget.srl.extra.footer.ClassicFooter
+        android:id="@+id/classicFooter_with_listView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:sr_style="style_scale"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:layout_gravity="bottom"
         android:layout_marginBottom="64dp"
-        android:layout_gravity="bottom">
+        android:gravity="center">
 
         <Button
-            android:id="@+id/button_with_listView_activity_change_empty_state"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:text="@string/change_state_to_empty"
-            android:textSize="12sp"/>
+            android:id="@+id/button_with_listView_change_empty_state"
+            style="@style/SmallButtonStyle"
+            android:text="@string/change_state_to_empty"/>
 
         <Button
-            android:id="@+id/button_with_listView_activity_change_content_state"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:layout_toRightOf="@id/button_with_listView_activity_change_empty_state"
-            android:text="@string/change_state_to_content"
-            android:textSize="12sp"/>
+            android:id="@+id/button_with_listView_change_content_state"
+            style="@style/SmallButtonStyle"
+            android:layout_toRightOf="@id/button_with_listView_change_empty_state"
+            android:text="@string/change_state_to_content"/>
 
         <Button
-            android:id="@+id/button_with_listView_activity_change_error_state"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/button_with_listView_activity_change_empty_state"
-            android:layout_margin="4dp"
-            android:text="@string/change_state_to_error"
-            android:textSize="12sp"/>
+            android:id="@+id/button_with_listView_change_error_state"
+            style="@style/SmallButtonStyle"
+            android:layout_below="@id/button_with_listView_change_empty_state"
+            android:text="@string/change_state_to_error"/>
 
         <Button
-            android:id="@+id/button_with_listView_activity_change_custom_state"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/button_with_listView_activity_change_empty_state"
-            android:layout_margin="4dp"
-            android:layout_toRightOf="@id/button_with_listView_activity_change_error_state"
-            android:text="@string/change_state_to_custom"
-            android:textSize="12sp"/>
+            android:id="@+id/button_with_listView_change_custom_state"
+            style="@style/SmallButtonStyle"
+            android:layout_below="@id/button_with_listView_change_empty_state"
+            android:layout_toRightOf="@id/button_with_listView_change_error_state"
+            android:text="@string/change_state_to_custom"/>
 
         <Button
-            android:id="@+id/button_with_listView_activity_disable_refresh"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/button_with_listView_activity_change_custom_state"
-            android:layout_margin="4dp"
-            android:text="@string/disable_refresh"
-            android:textSize="12sp"/>
+            android:id="@+id/button_with_listView_disable_refresh"
+            style="@style/SmallButtonStyle"
+            android:layout_below="@id/button_with_listView_change_custom_state"
+            android:text="@string/disable_refresh"/>
 
         <Button
-            android:id="@+id/button_with_listView_activity_enable_refresh"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/button_with_listView_activity_change_custom_state"
-            android:layout_margin="4dp"
-            android:layout_toRightOf="@id/button_with_listView_activity_disable_refresh"
-            android:text="@string/enable_refresh"
-            android:textSize="12sp"/>
+            android:id="@+id/button_with_listView_enable_refresh"
+            style="@style/SmallButtonStyle"
+            android:layout_below="@id/button_with_listView_change_custom_state"
+            android:layout_toRightOf="@id/button_with_listView_disable_refresh"
+            android:text="@string/enable_refresh"/>
 
         <Button
-            android:id="@+id/button_with_listView_activity_disable_loadMore"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/button_with_listView_activity_disable_refresh"
-            android:layout_margin="4dp"
-            android:text="@string/disable_loadMore"
-            android:textSize="12sp"/>
+            android:id="@+id/button_with_listView_disable_loadMore"
+            style="@style/SmallButtonStyle"
+            android:layout_below="@id/button_with_listView_disable_refresh"
+            android:text="@string/disable_loadMore"/>
 
         <Button
-            android:id="@+id/button_with_listView_activity_enable_loadMore"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/button_with_listView_activity_disable_refresh"
-            android:layout_margin="4dp"
-            android:layout_toRightOf="@id/button_with_listView_activity_disable_loadMore"
-            android:text="@string/enable_loadMore"
-            android:textSize="12sp"/>
+            android:id="@+id/button_with_listView_enable_loadMore"
+            style="@style/SmallButtonStyle"
+            android:layout_below="@id/button_with_listView_disable_refresh"
+            android:layout_toRightOf="@id/button_with_listView_disable_loadMore"
+            android:text="@string/enable_loadMore"/>
     </RelativeLayout>
 </me.dkzwm.widget.srl.SmoothRefreshLayout>
